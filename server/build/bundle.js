@@ -7048,9 +7048,13 @@ var Home = __webpack_require__(110).default;
 var renderToString = __webpack_require__(111).renderToString;
 
 var app = express();
+
+app.use(express.static('public'));
 app.get("/", function (req, res) {
     var component = renderToString(React.createElement(Home, null));
-    res.send(component);
+
+    var html = "\n    <html>\n        <head></head>\n        <body>\n            <div id='app'>\n                <h1>" + component + "</h1>\n                <button >Click me jhor</button>\n                <script src=\"bundle.js\"></script>\n            </div>\n        </body>\n    </html>\n    \n    ";
+    res.send(html);
 });
 
 app.listen(5000, function () {
@@ -18027,10 +18031,24 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Home = function Home() {
+  var onclick = function onclick(e) {
+    var sum = 0;
+    sum += 1;
+    console.log("You have clicked the button " + sum + "time");
+  };
   return _react2.default.createElement(
-    'div',
+    "div",
     null,
-    'Welcome to the Homepage'
+    _react2.default.createElement(
+      "div",
+      null,
+      "Welcome to the Homepage"
+    ),
+    _react2.default.createElement(
+      "button",
+      { onClick: onclick },
+      " Click This button"
+    )
   );
 };
 
